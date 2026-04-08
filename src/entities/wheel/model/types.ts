@@ -1,0 +1,12 @@
+export interface IWheel {
+    wheel_id: number;
+    name: string;
+    interval_seconds: number;
+    fields: IField[];
+}
+
+export interface IField {
+    field_id: number;
+    name: string;
+    color_hex: string;
+}
