@@ -1,6 +1,7 @@
 import Button from '@/shared/ui/Button/Button'
 import { useTranslation } from 'react-i18next'
 import { WheelCard } from '@/entities/wheel/ui/WheelCard/WheelCard'
+import { RecordCard } from '@/entities/record/ui/RecordCard/RecordCard'
 import { CurrentUserProfile } from '@/shared/mocks/CurrentUserProfile'
 
 export const DashboardPage = () => {
@@ -10,8 +11,8 @@ export const DashboardPage = () => {
     <WheelCard key={wheel.wheel_id} />
   )); 
 
-    const userRecords = CurrentUserProfile.wheels.map((wheel) => (
-    <WheelCard key={wheel.wheel_id} />
+    const userRecords = CurrentUserProfile.records.map((record) => (
+    <RecordCard key={record.record_id} />
   )); 
 
   return (
@@ -29,7 +30,7 @@ export const DashboardPage = () => {
           {userRecords.length > 0 ? userRecords : <p>{t('myRecordsEmpty')}</p>}
         </ul>
       </div>
-      <Button>{t('createRecord')}</Button>
+      <Button>{t('createWheel')}</Button>
     </>
   );
 }

@@ -1,5 +1,7 @@
 import type { IUser } from "@/entities/user/model/types";
-import { CurrentUserWheels } from "@/shared/mocks/Wheels";
+import { currentUserWheels } from "@/shared/mocks/Wheels";
+import { currentUserRecords } from "@/shared/mocks/Records";
+
 
 
 
@@ -8,6 +10,6 @@ export const CurrentUserProfile: IUser = {
     name: 'Sveta',
     login: 'SvetaEng',
     email: 'sveta@gmail.com',
-    wheels: CurrentUserWheels,
-    records: [],
+    wheels: currentUserWheels,
+    records: currentUserRecords
 }

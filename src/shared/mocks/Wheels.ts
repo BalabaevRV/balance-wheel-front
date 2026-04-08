@@ -2,7 +2,7 @@
 
 import type { IWheel } from '@/entities/wheel/model/types';
 
-export const WheelOfLife: IWheel = {
+export const wheelOfLife: IWheel = {
     wheel_id: 1,
     name: 'Wheel of Life',
     interval_seconds: 24600,
@@ -40,7 +40,7 @@ export const WheelOfLife: IWheel = {
     ]
 };
 
-export const HealthWheel: IWheel = {
+export const healthWheel: IWheel = {
     wheel_id: 2,
     name: 'Health Wheel',
     interval_seconds: 24600,
@@ -68,7 +68,7 @@ export const HealthWheel: IWheel = {
     ]
 };
 
-export const CareerWheel: IWheel = {
+export const careerWheel: IWheel = {
     wheel_id: 3,
     name: 'Career Wheel',
     interval_seconds: 24600,
@@ -96,7 +96,7 @@ export const CareerWheel: IWheel = {
     ]
 };
 
-export const RelationshipsWheel: IWheel = {
+export const relationshipsWheel: IWheel = {
     wheel_id: 4,
     name: 'Relationships Wheel',
     interval_seconds: 24600,
@@ -124,4 +124,4 @@ export const RelationshipsWheel: IWheel = {
     ]
 };
 
-export const CurrentUserWheels: IWheel[] = [WheelOfLife, HealthWheel, CareerWheel, RelationshipsWheel]
+export const currentUserWheels: IWheel[] = [wheelOfLife, healthWheel, careerWheel, relationshipsWheel]

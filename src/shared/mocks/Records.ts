@@ -1,6 +1,6 @@
 import type { IRecord } from "@/entities/record/model/types"
 
-const Record1: IRecord = {
+const record1: IRecord = {
     record_id: 1,
     wheel_id: 1,
     created_at: new Date('2026-03-17'),
@@ -46,8 +46,8 @@ const Record1: IRecord = {
     ]
 }
 
-const Record2: IRecord = {
-    record_id: 1,
+const record2: IRecord = {
+    record_id: 2,
     wheel_id: 1,
     created_at: new Date('2026-04-02'),
     updated_at: new Date('2026-03-02'),
@@ -92,8 +92,8 @@ const Record2: IRecord = {
     ]
 }
 
-export const Record3: IRecord = {
-    record_id: 1,
+export const record3: IRecord = {
+    record_id: 3,
     wheel_id: 2,
     created_at: new Date('2026-03-17'),
     updated_at: new Date('2026-03-17'),
@@ -126,4 +126,4 @@ export const Record3: IRecord = {
     ]
 }
 
-export const currentUserRecords: IRecord[] = [Record1, Record2, Record3]
+export const currentUserRecords: IRecord[] = [record1, record2, record3]
