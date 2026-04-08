@@ -13,7 +13,7 @@ const resources = {
         recentRecords: 'Recent records',
         createRecord: 'Create record',
         createWheel: 'Create wheel',
-        editRecrord: 'Edit record',
+        editRecord: 'Edit record',
         myWheelsEmpty: 'You have no wheels yet. Create your first wheel to get started!',
         myRecordsEmpty: 'You have no records yet. Create your first record to get started!'
     }
@@ -29,7 +29,7 @@ const resources = {
         RecentRecords: 'Последние записи',
         createRecord: 'Создать запись',
         createWheel: 'Создать колесо',
-        editCrecord: 'Редактировать запись',
+        editRecord: 'Редактировать запись',
         myWheelsEmpty: 'У вас ещё нет колёс. Создайте своё первое колесо, чтобы начать!',
         myRecordsEmpty: 'У вас ещё нет записей. Создайте свою первую запись, чтобы начать!'
     }

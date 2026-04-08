@@ -1,5 +1,6 @@
 import Button from '@/shared/ui/Button/Button'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { WheelCard } from '@/entities/wheel/ui/WheelCard/WheelCard'
 import { RecordCard } from '@/entities/record/ui/RecordCard/RecordCard'
 import { CurrentUserProfile } from '@/shared/mocks/CurrentUserProfile'
@@ -7,13 +8,19 @@ import { CurrentUserProfile } from '@/shared/mocks/CurrentUserProfile'
 export const DashboardPage = () => {
   const { t } = useTranslation();  
 
+  const navigate = useNavigate();
+
   const userWheels = CurrentUserProfile.wheels.map((wheel) => (
-    <WheelCard key={wheel.wheel_id} />
+    <WheelCard key={wheel.wheel_id} name={wheel.name} />
   )); 
 
     const userRecords = CurrentUserProfile.records.map((record) => (
     <RecordCard key={record.record_id} />
   )); 
+
+  const createRecord = () => {
+     navigate('/record'); 
+  }
 
   return (
     <>
@@ -30,7 +37,7 @@ export const DashboardPage = () => {
           {userRecords.length > 0 ? userRecords : <p>{t('myRecordsEmpty')}</p>}
         </ul>
       </div>
-      <Button>{t('createWheel')}</Button>
+      <Button onClick={createRecord}>{t('createRecord')}</Button>
     </>
   );
 }
