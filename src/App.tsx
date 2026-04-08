@@ -3,7 +3,9 @@ import './App.css'
 function App() {
     return (
       <>
-        <h1>Ололо</h1>
+        <div className='container'>
+          <h1>Balance wheel</h1>
+        </div>
       </>
     )
 }
