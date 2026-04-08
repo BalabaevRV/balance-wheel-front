@@ -7,7 +7,13 @@ const resources = {
         appName: 'BalanceWheel',
         dashboard: 'Dashboard',
         wheels: 'Wheels',
-        records: 'Records'
+        records: 'Records',
+        welcome: 'Welcome, {{name}}!',
+        myWheels: 'My Wheels',
+        recentRecords: 'Recent Records',
+        createRecord: 'Create Record',
+        myWheelsEmpty: 'You have no wheels yet. Create your first wheel to get started!',
+        myRecordsEmpty: 'You have no records yet. Create your first record to get started!'
     }
   },
   ru: {
@@ -15,7 +21,13 @@ const resources = {
         appName: 'Колесо баланса',
         dashboard: 'Дашбоард',
         wheels: 'Колёса',
-        records: 'Записи'
+        records: 'Записи',
+        Welcome: 'Добро пожаловать, {{name}}!',
+        MyWheels: 'Мои колёса',
+        RecentRecords: 'Последние записи',
+        createRecord: 'Создать запись',
+        myWheelsEmpty: 'У вас ещё нет колёс. Создайте своё первое колесо, чтобы начать!',
+        myRecordsEmpty: 'У вас ещё нет записей. Создайте свою первую запись, чтобы начать!'
     }
   }
 };
