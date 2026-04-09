@@ -1,13 +1,14 @@
 import type { IRecord } from "@/entities/record/model/types"
 
-const record1: IRecord = {
+export const record1: IRecord = {
     record_id: 1,
     wheel_id: 1,
+    balance_wheel_name: 'Wheel of Life',
     created_at: new Date('2026-03-17'),
     updated_at: new Date('2026-03-17'),
     date: new Date('2026-03-17'),
     values: [
-                {
+        {
             field_id: 1,
             name: 'Health',
             color_hex: '#FF0000',
@@ -49,6 +50,7 @@ const record1: IRecord = {
 const record2: IRecord = {
     record_id: 2,
     wheel_id: 1,
+    balance_wheel_name: 'Wheel of Life',
     created_at: new Date('2026-04-02'),
     updated_at: new Date('2026-03-02'),
     date: new Date('2026-03-17'),
@@ -95,6 +97,7 @@ const record2: IRecord = {
 export const record3: IRecord = {
     record_id: 3,
     wheel_id: 2,
+    balance_wheel_name: 'Health Wheel',
     created_at: new Date('2026-03-17'),
     updated_at: new Date('2026-03-17'),
     date: new Date('2026-03-17'),

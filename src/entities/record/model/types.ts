@@ -4,6 +4,7 @@ import type { IField } from "@/entities/wheel/model/types";
 export interface IRecord {
     record_id: number;
     wheel_id: number;
+    balance_wheel_name: string;
     created_at: Date;
     updated_at: Date;
     date: Date;
