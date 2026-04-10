@@ -11,15 +11,10 @@ interface WheelChartProps {
 }
 
 export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, maxValue = 10  }: WheelChartProps) => {
-  console.log('WheelChart data:', data);
 
   const chartContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-      console.log('WheelChart data:', data);
-     console.log('useEffect called');
-     console.log(chartContainerRef.current)
   if (!chartContainerRef.current || !data.length) return;
-      console.log(111111111);
     // Очищаем контейнер
     d3.select(chartContainerRef.current).selectAll('*').remove();
 
