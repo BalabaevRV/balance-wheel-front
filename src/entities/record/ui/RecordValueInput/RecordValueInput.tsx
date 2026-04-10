@@ -1,3 +1,5 @@
+import { Input } from "@/shared/ui/Input/Input"
+
 
 interface IRecordValueInputProps {
     id: number;
@@ -9,10 +11,10 @@ interface IRecordValueInputProps {
 
 export const RecordValueInput = ({ id, name,  color, value, onChange }: IRecordValueInputProps ) => {
     return (
-        <div key={id}> 
+        <div className="flex items-center gap-1"> 
             <label htmlFor={id.toString()}>{name}</label>
-            <span style={{ backgroundColor: color }} />
-            <input type="number"  value={value} className="bg-blue-100 rounded-sm p-1" onChange={onChange} />
+            <span className="w-5 h-5 rounded-full" style={{ backgroundColor: color }} />
+            <Input type="number" value={value} onChange={onChange} />
         </div>
     )
 }

@@ -4,6 +4,7 @@ import { record1 } from "@/shared/mocks/Records"
 import { WheelChart } from "@/widgets/ui/WheelChart/WheelChart"
 import { RecordValueInput } from "@/entities/record/ui/RecordValueInput/RecordValueInput"
 import { useState } from "react";
+import { Button } from "@/shared/ui/Button/Button";
 
 function RecordPage() {
 const { t } = useTranslation();  
@@ -31,16 +32,16 @@ const wheelName = record1.balance_wheel_name
   return (
     <>
       <h1 className="text-xl font-bold mb-6">{id ? t('editRecord') : t('newRecord')}</h1>
-      <div>
+      <div className="flex align-center gap-6">
         <div>
-          <label htmlFor="balanceWheel">Balance wheel</label>
-          <input type="text" id="balanceWheel" readOnly className="bg-blue-100 rounded-sm p-1" value={wheelName} />
+          <p className="text-m font-medium mb-2">{ wheelName }</p>
+          <div className="flex flex-col gap-2">
+            {values}
+          </div>
+          <Button>{t('save')}</Button>
         </div>
-        <div>
-          {values}
-        </div>
+        <WheelChart data={numberValues} />
       </div>
-      <WheelChart data={numberValues} />
     </>
   );
 }
