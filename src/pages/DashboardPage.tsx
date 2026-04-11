@@ -28,16 +28,16 @@ export const DashboardPage = () => {
 
   return (
     <>
-      <p className="text-xl font-bold mb-6">{t('welcome', { name: CurrentUserProfile.name })}</p>
-      <div className='mb-4'>
+      <p className="text-xl font-bold mb-8">{t('welcome', { name: CurrentUserProfile.name })}</p>
+      <div className='mb-12'>
         <p className="text-lg font-medium mb-2">{t('myWheels')}</p>
-        <ul className='flex gap-4 mb-2'>  
+        <ul className='flex gap-4 mb-6'>  
           {userWheels.length > 0 ? userWheels : <p>{t('myWheelsEmpty')}</p>}
         </ul>
         <Button onClick={createWheel}>{t('createWheel')}</Button>
       </div>
-      <div className='mb-4'>
-        <p className="text-lg font-medium mb-2">{t('recentRecords')}</p>
+      <div className='mb-6'>
+        <p className="text-lg font-medium mb-">{t('recentRecords')}</p>
         <ul className='flex gap-4'> 
           {userRecords.length > 0 ? userRecords : <p>{t('myRecordsEmpty')}</p>}
         </ul>
