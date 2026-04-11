@@ -11,7 +11,7 @@ export const DashboardPage = () => {
   const navigate = useNavigate();
 
   const userWheels = CurrentUserProfile.wheels.map((wheel) => (
-    <WheelCard key={wheel.wheel_id} name={wheel.name} />
+    <WheelCard key={wheel.wheel_id} name={wheel.name} fields={wheel.fields} />
   )); 
 
     const userRecords = CurrentUserProfile.records.map((record) => (

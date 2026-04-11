@@ -7,10 +7,11 @@ interface WheelChartProps {
   height?: number;
   radius?: number;
   maxValue?: number;
+  showLabels?: boolean;
   data: IFieldValue[];
 }
 
-export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, maxValue = 10  }: WheelChartProps) => {
+export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, maxValue = 10, showLabels = true }: WheelChartProps) => {
 
   const chartContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -58,21 +59,23 @@ export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, max
         .attr('stroke-width', 0.5);
 
       // Подпись
-      const [x, y] = arcLabel.centroid(arc);
-      const angle = (arc.startAngle + arc.endAngle) / 2;
-      
-      svg
-        .append('text')
-        .attr('transform', `translate(${x}, ${y})`)
-        .attr('dy', '0.35em')
-        .style('text-anchor', angle < Math.PI ? 'start' : 'end')
-        .style('font-size', '14px')
-        .style('font-weight', '500')
-        .style('fill', '#333')
-        .style('paint-order', 'stroke')
-        .style('stroke', 'white')
-        .style('stroke-width', '2px')
-        .text(item.name);
+      if (showLabels) {
+        const [x, y] = arcLabel.centroid(arc);
+        const angle = (arc.startAngle + arc.endAngle) / 2;
+        
+        svg
+          .append('text')
+          .attr('transform', `translate(${x}, ${y})`)
+          .attr('dy', '0.35em')
+          .style('text-anchor', angle < Math.PI ? 'start' : 'end')
+          .style('font-size', '14px')
+          .style('font-weight', '500')
+          .style('fill', '#333')
+          .style('paint-order', 'stroke')
+          .style('stroke', 'white')
+          .style('stroke-width', '2px')
+          .text(item.name);
+      }
     });
 
     return () => {
