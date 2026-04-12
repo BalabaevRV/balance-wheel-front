@@ -15,7 +15,7 @@ export const DashboardPage = () => {
   )); 
 
     const userRecords = CurrentUserProfile.records.map((record) => (
-    <RecordCard key={record.record_id} name={record.balance_wheel_name} id={record.record_id} values={record.values} />
+    <RecordCard key={record.record_id} name={record.balance_wheel_name} id={record.record_id} values={record.values} date={record.date} />
   )); 
 
   const createRecord = () => {

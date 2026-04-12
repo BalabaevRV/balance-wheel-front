@@ -7,6 +7,7 @@ import { Button } from "@/shared/ui/Button/Button";
 import { WheelSelector } from "@/shared/ui/Selector/Selector";
 import { currentUserWheels } from "@/shared/mocks/Wheels";
 import { currentUserRecords } from "@/shared/mocks/Records";
+import { Input } from "@/shared/ui/Input/Input";
 
 export function RecordPage() {
   const { t } = useTranslation();  
@@ -27,7 +28,8 @@ export function RecordPage() {
         return {
           wheelId: existingRecord.wheel_id,
           wheelName: existingRecord.balance_wheel_name,
-          customValues: initialValues
+          customValues: initialValues,
+          date: existingRecord.date
         };
       }
     }
@@ -35,13 +37,15 @@ export function RecordPage() {
     return {
       wheelId: initialWheelId || 0,
       wheelName: '',
-      customValues: {} as Record<number, number>
+      customValues: {} as Record<number, number>,
+      date: new Date()
     };
   }, [id, initialWheelId]);
 
 
   const [wheelId, setWheelId] = useState(initialState.wheelId);
   const [wheelName] = useState(initialState.wheelName);
+  const [date, setDate] = useState(initialState.date);
   const [customValues, setCustomValues] = useState(initialState.customValues);
 
   const selectedWheel = useMemo(() => {
@@ -107,8 +111,13 @@ export function RecordPage() {
       <h1 className="text-xl font-bold mb-6">{id ? t('editRecord') : t('newRecord')}</h1>
       <div className="flex align-center gap-6">
         <div>
+          <div>
           { id ? <p className="text-m font-medium mb-2">{ wheelName }</p> :
            <WheelSelector options={wheelOptions} placeholder={t('selectWheel')} defaultValue={wheelId || ''} onChange={handleWheelChange} />  }
+           <div className="mb-4">
+            <Input type='date' onChange={e => setDate(new Date(e.target.value))} value={date.toISOString().split('T')[0]} />
+           </div>
+           </div>
           <div className="flex flex-col gap-2">
             {renderValues()}
           </div>
