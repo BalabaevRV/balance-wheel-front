@@ -8,13 +8,15 @@ import type { IFieldValue } from '@/entities/record/model/types';
 interface IWheelCardProps {
   name: string;
   fields: IField[];
+  wheelId: number;
 }
 
-export const WheelCard = ({ name, fields }: IWheelCardProps) => {
+export const WheelCard = ({ name, fields, wheelId }: IWheelCardProps) => {
     const { t } = useTranslation();
     const navigate = useNavigate()
+
     const createRecord = () => {
-      navigate('/record');
+      navigate('/record', { state: { wheelId: wheelId } });
     }
 
     const fieldsWithValues: IFieldValue[] = fields.map((field) => ({

@@ -7,17 +7,18 @@ import type { IFieldValue } from '@/entities/record/model/types';
 
 interface IWheelRecordProps {
   name: string;
+  id: number;
   values: IFieldValue[];
 }
 
 
-export const RecordCard = ({ name, values }: IWheelRecordProps) => {
+export const RecordCard = ({ name, id, values }: IWheelRecordProps) => {
     const { t } = useTranslation()
     const navigate = useNavigate();
 
 
     const editRecord = () => {
-    navigate('/record/${id}'); 
+    navigate(`/record/${id}`); 
     }
 
     return (

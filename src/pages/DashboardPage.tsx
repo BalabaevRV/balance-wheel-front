@@ -11,11 +11,11 @@ export const DashboardPage = () => {
   const navigate = useNavigate();
 
   const userWheels = CurrentUserProfile.wheels.map((wheel) => (
-    <WheelCard key={wheel.wheel_id} name={wheel.name} fields={wheel.fields} />
+    <WheelCard key={wheel.wheel_id} name={wheel.name} fields={wheel.fields} wheelId={wheel.wheel_id} />
   )); 
 
     const userRecords = CurrentUserProfile.records.map((record) => (
-    <RecordCard key={record.record_id} name={record.balance_wheel_name} values={record.values} />
+    <RecordCard key={record.record_id} name={record.balance_wheel_name} id={record.record_id} values={record.values} />
   )); 
 
   const createRecord = () => {
