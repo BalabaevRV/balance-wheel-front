@@ -22,7 +22,8 @@ const resources = {
         myRecordsEmpty: 'You have no records yet. Create your first record to get started!',
         Save: 'Save',
         selectWheel: 'Select a wheel...',
-        selectWheelFirst: 'Select a wheel first...'
+        selectWheelFirst: 'Select a wheel first...',
+        editWheel: 'Edit wheel'
     }
   },
   ru: {
@@ -45,7 +46,8 @@ const resources = {
         myRecordsEmpty: 'У вас ещё нет записей. Создайте свою первую запись, чтобы начать!',
         Save: 'Сохранить',
         selectWheel: 'Выберите колесо...',
-        selectWheelFirst: 'Сначала выберите колесо...'
+        selectWheelFirst: 'Сначала выберите колесо...',
+        editWheel: 'Редактировать колесо'
     }
   }
 };

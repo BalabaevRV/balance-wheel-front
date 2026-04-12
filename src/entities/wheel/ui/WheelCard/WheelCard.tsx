@@ -9,14 +9,19 @@ interface IWheelCardProps {
   name: string;
   fields: IField[];
   wheelId: number;
+  showEditButton: boolean;
 }
 
-export const WheelCard = ({ name, fields, wheelId }: IWheelCardProps) => {
+export const WheelCard = ({ name, fields, wheelId,showEditButton }: IWheelCardProps) => {
     const { t } = useTranslation();
     const navigate = useNavigate()
 
     const createRecord = () => {
       navigate('/record', { state: { wheelId: wheelId } });
+    }
+
+    const editWheel = () => {
+      navigate(`/wheel/${wheelId}`);
     }
 
     const fieldsWithValues: IFieldValue[] = fields.map((field) => ({
@@ -30,7 +35,12 @@ export const WheelCard = ({ name, fields, wheelId }: IWheelCardProps) => {
         <div className='mb-2'>
           <WheelChart data={fieldsWithValues} width={80} height={80} radius={40} showLabels={false} />
         </div>
-        <Button onClick={createRecord}>{t('createRecord')}</Button>
+        <div className='flex gap-2'>
+          <Button onClick={createRecord}>{t('createRecord')}</Button>
+          {showEditButton && (
+            <Button onClick={editWheel}>{t('editWheel')}</Button>
+          )}
+        </div>
     </li>
   )
 } 

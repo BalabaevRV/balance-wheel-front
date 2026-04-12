@@ -1,14 +1,13 @@
 import type { IFieldValue } from "@/entities/record/model/types";
+import { currentUserWheels } from "@/shared/mocks/Wheels";
 import Button from "@/shared/ui/Button/Button"
 import { Input } from "@/shared/ui/Input/Input"
 import { WheelChart } from "@/widgets/ui/WheelChart/WheelChart";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 function WheelEditorPage() {
-  const [wheelName, setWheelName] = useState<string>('');
-  const [fields, setFields] = useState<IFieldValue[]>([]);
   const { id } = useParams();
   const { t } = useTranslation()
   const navigate = useNavigate()  
@@ -20,6 +19,28 @@ function WheelEditorPage() {
   const saveRecord = () => {
   navigate('/dashboard');
 }
+
+  const initialState = useMemo(() => {
+    if (id) {
+      const currentWheel = currentUserWheels.find(wheel => wheel.wheel_id === parseInt(id));
+      if (currentWheel) {
+        return {
+          wheelId: currentWheel.wheel_id,
+          wheelName: currentWheel.name,
+          fields: currentWheel.fields.map(field => ({ ...field, value: 10 }))
+        };
+      }
+    }
+    return {
+      wheelId: 0,
+      wheelName: '',
+      fields: []
+    };
+  }, [id]);
+    
+
+  const [fields, setFields] = useState<IFieldValue[]>(initialState.fields);
+  const [wheelName, setWheelName] = useState<string>(initialState.wheelName);
 
   const fieldsInputs = fields.map((field) => (
     <div className="flex align-center gap-2 mb-1" key={field.field_id} >

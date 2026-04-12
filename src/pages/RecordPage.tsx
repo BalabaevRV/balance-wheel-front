@@ -53,7 +53,7 @@ export function RecordPage() {
     return currentUserWheels.find(wheel => wheel.wheel_id === wheelId);
   }, [wheelId]);
 
-  // Вычисляем значения полей для отображения
+  
   const numberValues = useMemo(() => {
     if (!selectedWheel) return [];
     
@@ -91,7 +91,7 @@ export function RecordPage() {
 
   const renderValues = () => {
     if (numberValues.length === 0) {
-      return <p className="text-gray-500 italic">{t('selectWheelFirst') || 'Сначала выберите колесо'}</p>;
+      return <p className="text-gray-500 italic">{t('selectWheelFirst')}</p>;
     }
     
     return numberValues.map((field) => (
