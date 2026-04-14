@@ -9,3 +9,11 @@ export interface IUser {
     wheels: IWheel[];
     records: IRecord[];
 }
+
+export interface ILoginData {
+    name: string
+}
+
+export interface IRegisterData {
+    name: string
+}
