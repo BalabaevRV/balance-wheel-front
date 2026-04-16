@@ -10,10 +10,19 @@ export interface IUser {
     records: IRecord[];
 }
 
-export interface ILoginData {
-    name: string
+export interface IUserToken {
+    user: IUser;
+    token: string;
 }
 
-export interface IRegisterData {
-    name: string
+export interface ILoginPayload {
+	login: string,
+	password: string
+}
+
+export interface ISignupPayload {
+	login: string,
+	password: string,
+	email: string,
+	name?: string
 }

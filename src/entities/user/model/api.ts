@@ -1,25 +1,20 @@
 import { api } from '@/shared/api/instance';
 import { API_ENDPOINTS } from '@/shared/api/endpoints';
-import type { IUser, ILoginData, IRegisterData } from './types';
+import type { IUser, IUserToken, ILoginPayload, ISignupPayload } from '@/entities/user/model/types';
 
 export const userApi = {
-  // Получить профиль
   getProfile: () => 
     api.get<IUser>(API_ENDPOINTS.USER_PROFILE),
-  
-  // Обновить профиль
+
   updateProfile: (data: Partial<IUser>) => 
     api.patch<IUser>(API_ENDPOINTS.USER_PROFILE, data),
+
+  login: (credentials: ILoginPayload) => 
+    api.post<{ data: IUserToken }>(API_ENDPOINTS.LOGIN, credentials),
+
+  register: (data: ISignupPayload) => 
+    api.post<{ data: IUserToken }>(API_ENDPOINTS.REGISTER, data),
   
-  // Логин
-  login: (credentials: ILoginData) => 
-    api.post<{ user: IUser; token: string }>(API_ENDPOINTS.LOGIN, credentials),
-  
-  // Регистрация
-  register: (data: IRegisterData) => 
-    api.post<{ user: IUser; token: string }>(API_ENDPOINTS.REGISTER, data),
-  
-  // Логаут
   logout: () => 
     api.post(API_ENDPOINTS.LOGOUT),
 };
