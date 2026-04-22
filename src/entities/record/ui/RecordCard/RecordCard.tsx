@@ -25,7 +25,7 @@ export const RecordCard = ({ name, id, values, date }: IWheelRecordProps) => {
     return (
         <li className='bg-blue-300 rounded-xl p-4'>
             <p className='text-lg font-medium mb-0.2'>{ name }</p>
-            <p className='text-md font-light mb-3'>{ date.toLocaleDateString() }</p>
+            <p className='text-md font-light mb-3'>{ new Date(date).toLocaleDateString() }</p>
             <div className='mb-2'>
                 <WheelChart data={values} width={80} height={80} radius={40} showLabels={false} />
             </div>
