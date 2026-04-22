@@ -14,7 +14,7 @@ export const RecordValueInput = ({ id, name,  color, value, onChange }: IRecordV
         <div className="flex items-center gap-1"> 
             <label htmlFor={id.toString()}>{name}</label>
             <span className="w-5 h-5 rounded-full" style={{ backgroundColor: color }} />
-            <Input type="number" value={value} onChange={onChange} />
+            <Input type="number" id={`record-value-${id}`} value={value} onChange={onChange} />
         </div>
     )
 }

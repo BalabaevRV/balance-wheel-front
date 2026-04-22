@@ -1,7 +1,47 @@
+import { Input } from "@/shared/ui/Input/Input"
+import { Button } from "@/shared/ui/Button/Button"
+import { useDispatch } from 'react-redux';
+import { useTranslation } from "react-i18next";
+import { loginUser } from "@/entities/user/model/userSlice";
+import { useState } from "react";
+import type { AppDispatch } from '@/app/store';
+import { useNavigate } from "react-router-dom";
+
 function LoginPage() {
+  const { t } = useTranslation();   
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');  
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
+      // login: 'SvetaEng',
+      // password: 'password123'
+
+
+  const handleSubmit =  async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setError('')
+    loginUser({ login, password });
+     const result = await dispatch(loginUser({ login, password }));
+    if (loginUser.fulfilled.match(result)) {
+      // ✅ Редирект после успешного логина
+      navigate('/dashboard');
+    } else {
+      setError(t('loginFailed'));
+    }
+  };
+
   return (
     <div>
-      <h1>LoginPage!</h1>
+        <form className="flex flex-col gap-4 max-w-md" onSubmit={handleSubmit}>
+            <Input placeholder={t('login')} type="text" value={login} id="login" onChange={(e) => setLogin(e.target.value)} />
+            <Input placeholder={t('password')} type="password" value={password} id="password" onChange={(e) => setPassword(e.target.value)} />
+             {error && <p className="text-red-500">{error}</p>}
+            <Button type="submit">{t('loginAction')}</Button>
+        </form>
+        <p>Еще не зарегистрированы? <a href="/signup" className="text-blue-500 hover:underline">Зарегистрироваться</a></p>
+
     </div>
   );
 }

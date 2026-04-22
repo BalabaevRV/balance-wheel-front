@@ -115,7 +115,7 @@ export function RecordPage() {
           { id ? <p className="text-m font-medium mb-2">{ wheelName }</p> :
            <WheelSelector options={wheelOptions} placeholder={t('selectWheel')} defaultValue={wheelId || ''} onChange={handleWheelChange} />  }
            <div className="mb-4">
-            <Input type='date' onChange={e => setDate(new Date(e.target.value))} value={date.toISOString().split('T')[0]} />
+            <Input type='date' id='record-date' onChange={e => setDate(new Date(e.target.value))} value={date.toISOString().split('T')[0]} />
            </div>
            </div>
           <div className="flex flex-col gap-2">

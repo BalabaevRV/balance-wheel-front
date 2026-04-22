@@ -45,17 +45,17 @@ function WheelEditorPage() {
 
   const fieldsInputs = fields.map((field) => (
     <div className="flex align-center gap-2 mb-1" key={field.field_id} >
-      <Input type='text' value={field.name} onChange={(e) => {
+      <Input type='text' id={`field-name-${field.field_id}`} value={field.name} onChange={(e) => {
         const newFields = [...fields];
         newFields[fields.indexOf(field)].name = e.target.value;
         setFields(newFields);
       }} />
-      <Input type='color' value={field.color_hex} onChange={(e) => {
+      <Input type='color' id={`field-color-${field.field_id}`} value={field.color_hex} onChange={(e) => {
         const newFields = [...fields];
         newFields[fields.indexOf(field)].color_hex = e.target.value;
         setFields(newFields);
       }} />
-      <Input type='number' value={field.value} onChange={(e) => {
+      <Input type='number' id={`field-value-${field.field_id}`} value={field.value} onChange={(e) => {
         const newFields = [...fields];
         newFields[fields.indexOf(field)].value = Number(e.target.value);
         setFields(newFields);
@@ -83,7 +83,7 @@ function WheelEditorPage() {
           <div className="mb-4">
             <div className="mb-2 flex align-center gap-2">
               <label htmlFor="wheelName">{t('wheelName')}</label>
-              <Input type="text" value={wheelName}  onChange={(e) => setWheelName(e.target.value)} />
+              <Input type="text" id="wheelName" value={wheelName}  onChange={(e) => setWheelName(e.target.value)} />
             </div>
             { fieldsInputs }
             <Button onClick={addField}>{t('AddField')}</Button>

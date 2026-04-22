@@ -23,7 +23,12 @@ const resources = {
         Save: 'Save',
         selectWheel: 'Select a wheel...',
         selectWheelFirst: 'Select a wheel first...',
-        editWheel: 'Edit wheel'
+        editWheel: 'Edit wheel',
+        loading: 'Loading...',
+        login: 'Login',
+        password: 'Password',
+        loginAction: 'Login',
+        loginFailed: 'Login failed. Please check your credentials and try again.'
     }
   },
   ru: {
@@ -47,7 +52,12 @@ const resources = {
         Save: 'Сохранить',
         selectWheel: 'Выберите колесо...',
         selectWheelFirst: 'Сначала выберите колесо...',
-        editWheel: 'Редактировать колесо'
+        editWheel: 'Редактировать колесо',
+        loading: 'Загрузка...',
+        login: 'Логин',
+        password: 'Пароль',
+        loginAction: 'Войти',
+        loginFailed: 'Ошибка входа. Пожалуйста, проверьте свои учетные данные и попробуйте снова.'
     }
   }
 };
