@@ -5,9 +5,9 @@ import { RecordValueInput } from "@/entities/record/ui/RecordValueInput/RecordVa
 import { useMemo, useState } from "react";
 import { Button } from "@/shared/ui/Button/Button";
 import { WheelSelector } from "@/shared/ui/Selector/Selector";
-import { currentUserWheels } from "@/shared/mocks/Wheels";
-import { currentUserRecords } from "@/shared/mocks/Records";
 import { Input } from "@/shared/ui/Input/Input";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/app/store";
 
 export function RecordPage() {
   const { t } = useTranslation();  
@@ -15,10 +15,11 @@ export function RecordPage() {
   const location = useLocation();
   const { id } = useParams();
   const { wheelId: initialWheelId } = location.state || {};
+  const { wheels, records } = useSelector((state: RootState) => state.user);
 
   const initialState = useMemo(() => {
     if (id) {
-      const existingRecord = currentUserRecords.find(rec => rec.record_id === parseInt(id));
+      const existingRecord = records.find(rec => rec.record_id === parseInt(id));
       if (existingRecord) {
         const initialValues: Record<number, number> = {};
         existingRecord.values?.forEach(field => {
@@ -40,7 +41,7 @@ export function RecordPage() {
       customValues: {} as Record<number, number>,
       date: new Date()
     };
-  }, [id, initialWheelId]);
+  }, [id, initialWheelId, records]);
 
 
   const [wheelId, setWheelId] = useState(initialState.wheelId);
@@ -50,8 +51,8 @@ export function RecordPage() {
 
   const selectedWheel = useMemo(() => {
     if (wheelId <= 0) return null;
-    return currentUserWheels.find(wheel => wheel.wheel_id === wheelId);
-  }, [wheelId]);
+    return wheels.find(wheel => wheel.wheel_id === wheelId);
+  }, [wheelId, wheels]);
 
   
   const numberValues = useMemo(() => {
@@ -65,7 +66,6 @@ export function RecordPage() {
     }));
   }, [selectedWheel, customValues]);
 
-  // Обработчик изменения значения поля
   const handleNumberChange = (fieldId: number, newValue: number) => {
     setCustomValues(prev => ({
       ...prev,
@@ -84,7 +84,7 @@ export function RecordPage() {
     navigate('/dashboard');
   };
 
-  const wheelOptions = currentUserWheels.map((wheel) => ({
+  const wheelOptions = wheels.map((wheel) => ({
     value: wheel.wheel_id,
     name: wheel.name
   }));

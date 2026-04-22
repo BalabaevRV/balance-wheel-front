@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { WheelCard } from '@/entities/wheel/ui/WheelCard/WheelCard'
 import { RecordCard } from '@/entities/record/ui/RecordCard/RecordCard'
-// import { CurrentUserProfile } from '@/shared/mocks/CurrentUserProfile'
 import type { RootState } from '@/app/store'
 import { useSelector } from 'react-redux'
 

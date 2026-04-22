@@ -1,17 +1,18 @@
+import type { RootState } from "@/app/store";
 import type { IFieldValue } from "@/entities/record/model/types";
-import { currentUserWheels } from "@/shared/mocks/Wheels";
 import Button from "@/shared/ui/Button/Button"
 import { Input } from "@/shared/ui/Input/Input"
 import { WheelChart } from "@/widgets/ui/WheelChart/WheelChart";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 function WheelEditorPage() {
   const { id } = useParams();
   const { t } = useTranslation()
   const navigate = useNavigate()  
-
+  const { wheels } = useSelector((state: RootState) => state.user);
   const saveWheel = () => {
   navigate('/dashboard');
 }
@@ -22,7 +23,7 @@ function WheelEditorPage() {
 
   const initialState = useMemo(() => {
     if (id) {
-      const currentWheel = currentUserWheels.find(wheel => wheel.wheel_id === parseInt(id));
+      const currentWheel = wheels.find(wheel => wheel.wheel_id === parseInt(id));
       if (currentWheel) {
         return {
           wheelId: currentWheel.wheel_id,
@@ -36,7 +37,7 @@ function WheelEditorPage() {
       wheelName: '',
       fields: []
     };
-  }, [id]);
+  }, [id, wheels]);
     
 
   const [fields, setFields] = useState<IFieldValue[]>(initialState.fields);
