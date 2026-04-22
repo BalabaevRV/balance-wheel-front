@@ -22,10 +22,8 @@ function LoginPage() {
   const handleSubmit =  async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
-    loginUser({ login, password });
-     const result = await dispatch(loginUser({ login, password }));
+    const result = await dispatch(loginUser({ login, password }));
     if (loginUser.fulfilled.match(result)) {
-      // ✅ Редирект после успешного логина
       navigate('/dashboard');
     } else {
       setError(t('loginFailed'));
@@ -40,7 +38,7 @@ function LoginPage() {
              {error && <p className="text-red-500">{error}</p>}
             <Button type="submit">{t('loginAction')}</Button>
         </form>
-        <p>Еще не зарегистрированы? <a href="/signup" className="text-blue-500 hover:underline">Зарегистрироваться</a></p>
+        <p>{t('dontHaveAccount')} <a href="/signup" className="text-blue-500 hover:underline">{t('signupAction')}</a></p>
 
     </div>
   );

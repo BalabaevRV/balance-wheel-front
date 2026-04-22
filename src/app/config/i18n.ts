@@ -28,7 +28,11 @@ const resources = {
         login: 'Login',
         password: 'Password',
         loginAction: 'Login',
-        loginFailed: 'Login failed. Please check your credentials and try again.'
+        loginFailed: 'Login failed. Please check your credentials and try again.',
+        signupFailed: 'Signup failed. Please check your input and try again.',
+        signupAction: 'Sign Up',
+        alreadyRegistered: 'Already registered?',
+        dontHaveAccount: 'Don\'t have an account?'
     }
   },
   ru: {
@@ -57,7 +61,11 @@ const resources = {
         login: 'Логин',
         password: 'Пароль',
         loginAction: 'Войти',
-        loginFailed: 'Ошибка входа. Пожалуйста, проверьте свои учетные данные и попробуйте снова.'
+        loginFailed: 'Ошибка входа. Пожалуйста, проверьте свои учетные данные и попробуйте снова.',
+        signupFailed: 'Ошибка регистрации. Пожалуйста, проверьте введенные данные и попробуйте снова.',
+        signupAction: 'Зарегистрироваться',
+        alreadyRegistered: 'Уже зарегистрированы?',
+        dontHaveAccount: 'Нет аккаунта?'
     }
   }
 };

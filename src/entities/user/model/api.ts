@@ -15,8 +15,8 @@ export const userApi = {
   login: (credentials: ILoginPayload) => 
     api.post<IUserToken>(API_ENDPOINTS.LOGIN, credentials),
 
-  register: (data: ISignupPayload) => 
-    api.post<{ data: IUserToken }>(API_ENDPOINTS.REGISTER, data),
+  signup: (data: ISignupPayload) => 
+    api.post<IUserToken>(API_ENDPOINTS.SIGNUP, data),
   
   logout: () => 
     api.post(API_ENDPOINTS.LOGOUT),

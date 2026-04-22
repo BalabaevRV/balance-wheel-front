@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { IWheel } from '@/entities/wheel/model/types';
 import type { IRecord } from '@/entities/record/model/types';
 import { userApi } from '@/entities/user/model/api';
+import type { ISignupPayload } from './types';
 
 interface UserState {
   id: number | null;
@@ -35,6 +36,15 @@ export const loginUser = createAsyncThunk(
     return response;
   }
 );
+
+export const signupUser = createAsyncThunk(
+  'user/signup',
+  async (credentials: ISignupPayload) => {
+    const response = await userApi.signup(credentials);
+    return response;
+  }
+);
+
 
 export const fetchUserProfile = createAsyncThunk(
   'user/fetchProfile',
@@ -99,6 +109,25 @@ const userSlice = createSlice({
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Ошибка получения профиля';
+      })
+      .addCase(signupUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(signupUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.id = action.payload.data.user.user_id;
+        state.name = action.payload.data.user.name;
+        state.email = action.payload.data.user.email;
+        state.token = action.payload.data.token;  
+        state.wheels = action.payload.data.user.wheels;
+        state.records = action.payload.data.user.records;
+        state.isAuthenticated = true;
+        localStorage.setItem('token', action.payload.data.token);
+      })
+      .addCase(signupUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Ошибка регистрации';
       });
   },
 });

@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import '@/app/config/i18n'
 import LoginPage from '@/pages/LoginPage'
-import RegisterPage from '@/pages/RegisterPage'
 import LandingPage from '@/pages/LandingPage'
 import { DashboardPage } from '@/pages/DashboardPage'
 import WheelPage from '@/pages/WheelPage'
@@ -10,17 +9,18 @@ import RecordsListPage from '@/pages/RecordsListPage'
 import RecordPage from '@/pages/RecordPage'
 import ProfilePage from '@/pages/ProfilePage'
 import NotFoundPage from '@/pages/NotFoundPage'
-import { MainLayout } from '@/layouts/MainLayout'
 import { ProtectedLayout } from '@/layouts/ProtectedLayout'
+import SignupPage from '@/pages/SignupPage'
+import { GuestLayout } from '@/layouts/GuestLayout'
 
 function App() {
 
   return (
     <Routes>
-      <Route element={<MainLayout />}>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+      <Route element={<GuestLayout />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<Navigate to="/dashboard" />} />
@@ -33,6 +33,7 @@ function App() {
         <Route path="/record" element={<RecordPage />} />
         <Route path="/record/:id" element={<RecordPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   )
