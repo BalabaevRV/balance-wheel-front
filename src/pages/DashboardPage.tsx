@@ -3,18 +3,22 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { WheelCard } from '@/entities/wheel/ui/WheelCard/WheelCard'
 import { RecordCard } from '@/entities/record/ui/RecordCard/RecordCard'
-import { CurrentUserProfile } from '@/shared/mocks/CurrentUserProfile'
+// import { CurrentUserProfile } from '@/shared/mocks/CurrentUserProfile'
+import type { RootState } from '@/app/store'
+import { useSelector } from 'react-redux'
 
 export const DashboardPage = () => {
   const { t } = useTranslation();  
 
   const navigate = useNavigate();
 
-  const userWheels = CurrentUserProfile.wheels.map((wheel) => (
-    <WheelCard key={wheel.wheel_id} name={wheel.name} fields={wheel.fields} wheelId={wheel.wheel_id} showEditButton={wheel.owner_id === CurrentUserProfile.user_id} />
+   const { id, name, wheels, records } = useSelector((state: RootState) => state.user);
+
+  const userWheels = wheels.map((wheel) => (
+    <WheelCard key={wheel.wheel_id} name={wheel.name} fields={wheel.fields} wheelId={wheel.wheel_id} showEditButton={wheel.owner_id === id} />
   )); 
 
-    const userRecords = CurrentUserProfile.records.map((record) => (
+    const userRecords = records.map((record) => (
     <RecordCard key={record.record_id} name={record.balance_wheel_name} id={record.record_id} values={record.values} date={record.date} />
   )); 
 
@@ -28,7 +32,7 @@ export const DashboardPage = () => {
 
   return (
     <>
-      <p className="text-xl font-bold mb-8">{t('welcome', { name: CurrentUserProfile.name })}</p>
+      <p className="text-xl font-bold mb-8">{t('welcome', { name: name })}</p>
       <div className='mb-12'>
         <p className="text-lg font-medium mb-2">{t('myWheels')}</p>
         <ul className='flex gap-4 mb-6'>  

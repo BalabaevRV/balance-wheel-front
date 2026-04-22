@@ -10,7 +10,7 @@ export const userApi = {
     api.patch<IUser>(API_ENDPOINTS.USER_PROFILE, data),
 
   login: (credentials: ILoginPayload) => 
-    api.post<{ data: IUserToken }>(API_ENDPOINTS.LOGIN, credentials),
+    api.post<IUserToken>(API_ENDPOINTS.LOGIN, credentials),
 
   register: (data: ISignupPayload) => 
     api.post<{ data: IUserToken }>(API_ENDPOINTS.REGISTER, data),

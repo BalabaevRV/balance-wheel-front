@@ -11,8 +11,20 @@ import RecordPage from '@/pages/RecordPage'
 import ProfilePage from '@/pages/ProfilePage'
 import NotFoundPage from '@/pages/NotFoundPage'
 import { MainLayout } from '@/layouts/MainLayout'
+import { useEffect } from 'react'
+import { useAppDispatch } from '@/app/store/hooks'; 
+import { loginUser } from '@/entities/user/model/userSlice'
 
 function App() {
+  const dispatch = useAppDispatch(); 
+
+ useEffect(() => {
+    dispatch(loginUser({
+      login: 'SvetaEng',
+      password: 'password123'
+    }));
+  }, []);
+
   return (
     <Routes>
        <Route element={<MainLayout />}>
