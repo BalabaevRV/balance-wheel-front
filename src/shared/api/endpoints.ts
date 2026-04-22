@@ -1,8 +1,8 @@
 export const API_ENDPOINTS = {
   // Auth
-  LOGIN: '/auth/login',
-  REGISTER: '/auth/register',
-  LOGOUT: '/auth/logout',
+  LOGIN: '/login',
+  REGISTER: '/register',
+  LOGOUT: '/logout',
   
   // Users
   USER_PROFILE: '/users/profile',
@@ -17,4 +17,4 @@ export const API_ENDPOINTS = {
   RECORDS: '/records',
   RECORD_BY_ID: (id: number) => `/records/${id}`,
   RECORDS_BY_WHEEL: (wheelId: number) => `/records/wheel/${wheelId}`,
-} as const;
+}
