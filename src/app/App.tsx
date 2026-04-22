@@ -20,7 +20,6 @@ function App() {
       <Route element={<GuestLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route element={<ProtectedLayout />}>
         <Route path="/" element={<Navigate to="/dashboard" />} />
@@ -33,8 +32,8 @@ function App() {
         <Route path="/record" element={<RecordPage />} />
         <Route path="/record/:id" element={<RecordPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="*" element={<NotFoundPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }
