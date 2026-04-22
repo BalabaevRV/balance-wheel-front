@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import type { IWheel } from '@/entities/wheel/model/types';
+import type { IRecord } from '@/entities/record/model/types';
+import { userApi } from '@/entities/user/model/api';
 
 interface UserState {
   id: number | null;
@@ -8,23 +10,29 @@ interface UserState {
   email: string;
   isAuthenticated: boolean;
   loading: boolean;
+  token: string | null;
   error: string | null;
+  wheels: IWheel[];
+  records: IRecord[];
 }
 
 const initialState: UserState = {
   id: null,
   name: '',
   email: '',
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem('token'),
   loading: false,
+  token: localStorage.getItem('token'),
   error: null,
+  wheels: [],
+  records: []
 };
 
 export const loginUser = createAsyncThunk(
   'user/login',
   async (credentials: { login: string; password: string }) => {
-    const response = await axios.post('/api/auth/login', credentials);
-    return response.data;
+    const response = await userApi.login(credentials);
+    return response;
   }
 );
 
@@ -53,10 +61,14 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.id = action.payload.user.id;
-        state.name = action.payload.user.name;
-        state.email = action.payload.user.email;
+        state.id = action.payload.data.user.user_id;
+        state.name = action.payload.data.user.name;
+        state.email = action.payload.data.user.email;
+        state.token = action.payload.data.token;  
+        state.wheels = action.payload.data.user.wheels;
+        state.records = action.payload.data.user.records;
         state.isAuthenticated = true;
+        localStorage.setItem('token', action.payload.data.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
