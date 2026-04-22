@@ -6,6 +6,9 @@ export const userApi = {
   getProfile: () => 
     api.get<IUser>(API_ENDPOINTS.USER_PROFILE),
 
+  getCurrentProfile: () => 
+    api.get<IUser>(API_ENDPOINTS.USER_PROFILE),
+
   updateProfile: (data: Partial<IUser>) => 
     api.patch<IUser>(API_ENDPOINTS.USER_PROFILE, data),
 

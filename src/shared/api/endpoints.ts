@@ -5,7 +5,7 @@ export const API_ENDPOINTS = {
   LOGOUT: '/logout',
   
   // Users
-  USER_PROFILE: '/users/profile',
+  USER_PROFILE: '/user',
   USER_WHEELS: '/users/wheels',
   
   // Balance Wheels

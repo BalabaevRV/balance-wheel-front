@@ -36,6 +36,15 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const fetchUserProfile = createAsyncThunk(
+  'user/fetchProfile',
+  async () => {
+    const response = await userApi.getCurrentProfile();
+    return response;
+  }
+);
+
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -73,6 +82,23 @@ const userSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Ошибка входа';
+      })
+      .addCase(fetchUserProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.id = action.payload.data.user_id;
+        state.name = action.payload.data.name;
+        state.email = action.payload.data.email;
+        state.wheels = action.payload.data.wheels;
+        state.records = action.payload.data.records;
+        state.isAuthenticated = true;
+      })
+      .addCase(fetchUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Ошибка получения профиля';
       });
   },
 });
