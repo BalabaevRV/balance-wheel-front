@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
   timeout: 10000,
@@ -17,7 +18,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Интерцептор для обработки ошибок
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
