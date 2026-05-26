@@ -9,7 +9,7 @@ import RecordsListPage from '@/pages/RecordsListPage'
 import RecordPage from '@/pages/RecordPage'
 import ProfilePage from '@/pages/ProfilePage'
 import NotFoundPage from '@/pages/NotFoundPage'
-import { ProtectedLayout } from '@/layouts/ProtectedLayout'
+import { AuthLayout } from '@/layouts/AuthLayout'
 import SignupPage from '@/pages/SignupPage'
 import { GuestLayout } from '@/layouts/GuestLayout'
 
@@ -21,7 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
       </Route>
-      <Route element={<ProtectedLayout />}>
+      <Route element={<AuthLayout />}>
         <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/landing" element={<LandingPage />} />
