@@ -11,7 +11,7 @@ export const DashboardPage = () => {
 
   const navigate = useNavigate();
 
-   const { id, name, wheels, records } = useSelector((state: RootState) => state.user);
+  const { id, name, wheels, records } = useSelector((state: RootState) => state.user);
 
   const userWheels = wheels.map((wheel) => (
     <WheelCard key={wheel.wheel_id} name={wheel.name} fields={wheel.fields} wheelId={wheel.wheel_id} showEditButton={wheel.owner_id === id} />
