@@ -15,10 +15,6 @@ function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-      // login: 'SvetaEng',
-      // password: 'password123'
-
-
   const handleSubmit =  async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
