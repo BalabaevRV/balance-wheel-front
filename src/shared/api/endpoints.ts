@@ -6,12 +6,11 @@ export const API_ENDPOINTS = {
   
   // Users
   USER_PROFILE: '/user',
-  USER_WHEELS: '/users/wheels',
   
   // Balance Wheels
   WHEELS: '/wheels',
   WHEEL_BY_ID: (id: number) => `/wheels/${id}`,
-  WHEEL_FIELDS: (wheelId: number) => `/wheels/${wheelId}/fields`,
+  SAVE_WHEEL: '/wheels',
   
   // Records
   RECORDS: '/records',
