@@ -4,7 +4,7 @@ import type { IWheel } from '@/entities/wheel/model/types';
 
 export const wheelOfLife: IWheel = {
     wheel_id: 1,
-     owner_id: 1,
+    owner_id: 1,
     name: 'Wheel of Life',
     interval_seconds: 24600,
     fields: [
