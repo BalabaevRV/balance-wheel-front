@@ -1,25 +1,37 @@
-import type { RootState } from "@/app/store";
+import type { AppDispatch, RootState } from "@/app/store";
+import { addWheel, updateWheel} from '@/entities/user/model/userSlice';
 import type { IFieldValue } from "@/entities/record/model/types";
+import { wheelApi } from "@/entities/wheel/model/api";
 import Button from "@/shared/ui/Button/Button"
 import { Input } from "@/shared/ui/Input/Input"
 import { WheelChart } from "@/widgets/ui/WheelChart/WheelChart";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 function WheelEditorPage() {
   const { id } = useParams();
-  const { t } = useTranslation()
-  const navigate = useNavigate()  
+  const { t } = useTranslation();
+  const navigate = useNavigate();  
+  const dispatch = useDispatch<AppDispatch>();
   const { wheels } = useSelector((state: RootState) => state.user);
-  const saveWheel = () => {
-  navigate('/dashboard');
-}
-
-  const saveRecord = () => {
-  navigate('/dashboard');
-}
+  const { id: idCurrentUser } = useSelector((state: RootState) => state.user);
+  const saveWheel = async () => {
+    if (!idCurrentUser) {
+      return
+    }
+    const response = await wheelApi.save({
+      wheel_id: id ? parseInt(id) : undefined, 
+      name: wheelName, 
+      fields: fields.map(field => ({ field_id: field.field_id, name: field.name, color_hex: field.color_hex })),
+      owner_id: idCurrentUser
+    });
+    if (response.success) {
+      dispatch(id ? updateWheel(response.data) : addWheel(response.data));
+      navigate('/dashboard');
+    }
+  }
 
   const initialState = useMemo(() => {
     if (id) {
@@ -33,7 +45,7 @@ function WheelEditorPage() {
       }
     }
     return {
-      wheelId: 0,
+      wheelId: null,
       wheelName: '',
       fields: []
     };
@@ -55,11 +67,7 @@ function WheelEditorPage() {
         newFields[fields.indexOf(field)].color_hex = e.target.value;
         setFields(newFields);
       }} />
-      <Input type='number' id={`field-value-${field.field_id}`} value={field.value} onChange={(e) => {
-        const newFields = [...fields];
-        newFields[fields.indexOf(field)].value = Number(e.target.value);
-        setFields(newFields);
-      }} />
+      <Input type='number' id={`field-value-${field.field_id}`} value={field.value}  />
       <Button onClick={() => removeChild(field.field_id)}>{t('removeField')}</Button>
     </div>
   )); 
@@ -90,7 +98,6 @@ function WheelEditorPage() {
           </div>
           <div className="flex gap-2">
             <Button onClick={saveWheel}>{t('saveWheel')}</Button>
-            <Button onClick={saveRecord}>{t('saveRecord')}</Button>
           </div>
         </div>
         <WheelChart data={fields} />

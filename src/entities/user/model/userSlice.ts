@@ -71,6 +71,15 @@ const userSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    addWheel: (state, action: PayloadAction<IWheel>) => {
+      state.wheels.push(action.payload);
+    },
+    updateWheel: (state, action: PayloadAction<IWheel>) => {
+      const index = state.wheels.findIndex(wheel => wheel.wheel_id === action.payload.wheel_id);
+      if (index !== -1) {
+        state.wheels[index] = action.payload;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -132,5 +141,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, logout, clearError } = userSlice.actions;
+export const { setUser, logout, clearError, addWheel, updateWheel } = userSlice.actions;
 export default userSlice.reducer;
