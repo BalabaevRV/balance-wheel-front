@@ -20,6 +20,7 @@ export const wheelApi = {
     return api.post(API_ENDPOINTS.DETACH_WHEEL(wheelId));
   },
 
-  save: (data: IWheelSave) => 
-    api.post<ApiResponse<IWheel>>(API_ENDPOINTS.SAVE_WHEEL, data),
+  save: (data: IWheelSave): Promise<ApiResponse<IWheel>> => {
+    return api.post(API_ENDPOINTS.SAVE_WHEEL, data);
+  }
 };

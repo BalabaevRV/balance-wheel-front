@@ -68,7 +68,7 @@ export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, max
           .attr('transform', `translate(${x}, ${y})`)
           .attr('dy', '0.35em')
           .style('text-anchor', angle < Math.PI ? 'start' : 'end')
-          .style('font-size', '14px')
+          .style('font-size', '42px')
           .style('font-weight', '500')
           .style('fill', '#333')
           .style('paint-order', 'stroke')

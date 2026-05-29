@@ -56,8 +56,8 @@ function WheelEditorPage() {
   const [wheelName, setWheelName] = useState<string>(initialState.wheelName);
 
   const fieldsInputs = fields.map((field) => (
-    <div className="flex align-center gap-2 mb-1" key={field.field_id} >
-      <Input type='text' id={`field-name-${field.field_id}`} value={field.name} onChange={(e) => {
+    <div className="flex align-center gap-2 mb-1 " key={field.field_id} >
+      <Input className="max-w-30" type='text' id={`field-name-${field.field_id}`} value={field.name} onChange={(e) => {
         const newFields = [...fields];
         newFields[fields.indexOf(field)].name = e.target.value;
         setFields(newFields);
@@ -67,7 +67,7 @@ function WheelEditorPage() {
         newFields[fields.indexOf(field)].color_hex = e.target.value;
         setFields(newFields);
       }} />
-      <Input type='number' id={`field-value-${field.field_id}`} value={field.value}  />
+      <Input className="max-w-12" type='number' id={`field-value-${field.field_id}`} value={field.value}  />
       <Button onClick={() => removeChild(field.field_id)}>{t('removeField')}</Button>
     </div>
   )); 
@@ -86,7 +86,7 @@ function WheelEditorPage() {
   return (
     <>
       <h1 className="text-xl font-bold mb-6">{id ? t('editWheel') : t('newWheel')}</h1>
-      <div className="flex align-center gap-6">
+      <div className="flex align-center gap-6 lg:flex-row flex-col">
         <div>
           <div className="mb-4">
             <div className="mb-2 flex align-center gap-2">
