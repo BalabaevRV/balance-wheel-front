@@ -23,7 +23,7 @@ export const RecordCard = ({ name, id, values, date }: IWheelRecordProps) => {
     }
 
     return (
-        <li className='bg-blue-300 rounded-xl p-4'>
+        <li className='bg-blue-300 rounded-xl p-4 w-full sm:w-48 flex flex-col' >
             <p className='text-lg font-medium mb-0.2'>{ name }</p>
             <p className='text-md font-light mb-3'>{ new Date(date).toLocaleDateString() }</p>
             <div className='mb-2'>
