@@ -9,10 +9,12 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '@/app/store';
 
 export const WheelsListPage = () => {
-  const { t } = useTranslation();  
+  const { t } = useTranslation() 
   const navigate = useNavigate()
-  const [wheels, setWheels] = useState<IWheel[]>([]);
-  const { id, wheels: userWheels } = useSelector((state: RootState) => state.user);
+  const [wheels, setWheels] = useState<IWheel[]>([])
+  const { id, wheels: userWheels } = useSelector((state: RootState) => state.user)
+
+  
 
   useEffect(() => {
       wheelApi.getWheelsList()
@@ -36,7 +38,7 @@ export const WheelsListPage = () => {
 
   return (
     <>
-      <h1 className="text-xl font-bold mb-6">WheelsListPage</h1>  
+      <h1 className="text-xl font-bold mb-6">{t('wheels')}</h1>  
       <ul className='flex flex-wrap gap-4 mb-6'>  
           {wheelsList.length > 0 ? wheelsList : 
             <div>

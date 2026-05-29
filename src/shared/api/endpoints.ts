@@ -6,6 +6,7 @@ export const API_ENDPOINTS = {
   
   // Users
   USER_PROFILE: '/user',
+  USER_RECORDS: (id: number) => `/user/${id}/records`,
   
   // Balance Wheels
   WHEELS: '/wheels',
