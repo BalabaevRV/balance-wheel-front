@@ -14,7 +14,7 @@ export const DashboardPage = () => {
   const { id, name, wheels, records } = useSelector((state: RootState) => state.user);
 
   const userWheels = wheels.map((wheel) => (
-    <WheelCard key={wheel.wheel_id} name={wheel.name} fields={wheel.fields} wheelId={wheel.wheel_id} showEditButton={wheel.owner_id === id} />
+    <WheelCard key={wheel.wheel_id} name={wheel.name} fields={wheel.fields} wheelId={wheel.wheel_id} ownerButton={wheel.owner_id === id} attachedButton={true} />
   )); 
 
     const userRecords = records.map((record) => (
@@ -25,27 +25,34 @@ export const DashboardPage = () => {
      navigate('/record'); 
   }
 
-    const createWheel = () => {
+  const createWheel = () => {
      navigate('/wheel'); 
+  }
+
+  const goToMyRecords = () => {
+    navigate('/records');
   }
 
   return (
     <>
       <p className="text-xl font-bold mb-8">{t('welcome', { name: name })}</p>
       <div className='mb-12'>
+        <p className="text-lg font-medium mb-">{t('recentRecords')}</p>
+        <ul className='flex flex-wrap gap-4 mb-6'> 
+          {userRecords.length > 0 ? userRecords : <p>{t('myRecordsEmpty')}</p>}
+        </ul>
+        <div className='flex gap-4'>
+          <Button onClick={createRecord}>{t('createRecord')}</Button>
+          <Button onClick={goToMyRecords}>{t('allMyRecords')}</Button>
+        </div>
+      </div>
+      <div className='mb-6'>
         <p className="text-lg font-medium mb-2">{t('myWheels')}</p>
-        <ul className='flex gap-4 mb-6'>  
+        <ul className='flex flex-wrap gap-4 mb-6'>  
           {userWheels.length > 0 ? userWheels : <p>{t('myWheelsEmpty')}</p>}
         </ul>
         <Button onClick={createWheel}>{t('createWheel')}</Button>
       </div>
-      <div className='mb-6'>
-        <p className="text-lg font-medium mb-">{t('recentRecords')}</p>
-        <ul className='flex gap-4'> 
-          {userRecords.length > 0 ? userRecords : <p>{t('myRecordsEmpty')}</p>}
-        </ul>
-      </div>
-      <Button onClick={createRecord}>{t('createRecord')}</Button>
     </>
   );
 }

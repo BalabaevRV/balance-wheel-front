@@ -10,6 +10,8 @@ export const API_ENDPOINTS = {
   // Balance Wheels
   WHEELS: '/wheels',
   WHEEL_BY_ID: (id: number) => `/wheels/${id}`,
+  ATTACH_WHEEL: (wheelId: number) => `/wheels/${wheelId}/attach`,
+  DETACH_WHEEL: (wheelId: number) => `/wheels/${wheelId}/detach`,
   SAVE_WHEEL: '/wheels',
   
   // Records

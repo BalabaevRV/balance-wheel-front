@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { IWheel } from '@/entities/wheel/model/types';
 import type { IRecord } from '@/entities/record/model/types';
 import { userApi } from '@/entities/user/model/api';
-import type { ISignupPayload } from './types';
+import type { ISignupPayload, IUser } from './types';
 
 interface UserState {
   id: number | null;
@@ -64,6 +64,13 @@ const userSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.isAuthenticated = true;
+    },
+    updateUser: (state, action: PayloadAction<IUser>) => {
+      state.id = action.payload.user_id;
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.wheels = action.payload.wheels;
+      state.records = action.payload.records;
     },
     logout: () => {
       return initialState;
@@ -141,5 +148,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, logout, clearError, addWheel, updateWheel } = userSlice.actions;
+export const { setUser, updateUser, logout, clearError, addWheel, updateWheel } = userSlice.actions;
 export default userSlice.reducer;
