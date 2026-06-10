@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { WheelChart } from "@/widgets/ui/WheelChart/WheelChart"
 import { RecordValueInput } from "@/entities/record/ui/RecordValueInput/RecordValueInput"
 import { useMemo, useState } from "react";
@@ -12,9 +12,7 @@ import type { RootState } from "@/app/store";
 export function RecordPage() {
   const { t } = useTranslation();  
   const navigate = useNavigate();
-  const location = useLocation();
   const { id } = useParams();
-  const { wheelId: initialWheelId } = location.state || {};
   const { wheels, records } = useSelector((state: RootState) => state.user);
 
   const initialState = useMemo(() => {
@@ -36,22 +34,22 @@ export function RecordPage() {
     }
     
     return {
-      wheelId: initialWheelId || 0,
+      wheelId: 0,
       wheelName: '',
       customValues: {} as Record<number, number>,
       date: new Date()
     };
-  }, [id, initialWheelId, records]);
+  }, [id, records]);
 
 
   const [wheelId, setWheelId] = useState(initialState.wheelId);
   const [wheelName] = useState(initialState.wheelName);
-  const [date, setDate] = useState(initialState.date);
+  const [date, setDate] = useState<Date | string>(initialState.date);
   const [customValues, setCustomValues] = useState(initialState.customValues);
 
   const selectedWheel = useMemo(() => {
     if (wheelId <= 0) return null;
-    return wheels.find(wheel => wheel.wheel_id === wheelId);
+      return wheels.find(wheel => wheel.wheel_id === wheelId);
   }, [wheelId, wheels]);
 
   
@@ -73,13 +71,13 @@ export function RecordPage() {
     }));
   };
 
-  // Обработчик смены колеса
   const handleWheelChange = (value: number) => {
     setWheelId(value);
     setCustomValues({}); 
   };
 
   const saveRecord = () => {
+    
     console.log('Saving record:', { wheelId, customValues });
     navigate('/dashboard');
   };
@@ -115,7 +113,7 @@ export function RecordPage() {
           { id ? <p className="text-m font-medium mb-2">{ wheelName }</p> :
            <WheelSelector options={wheelOptions} placeholder={t('selectWheel')} defaultValue={wheelId || ''} onChange={handleWheelChange} />  }
            <div className="mb-4">
-            <Input type='date' id='record-date' onChange={e => setDate(new Date(e.target.value))} value={date.toISOString().split('T')[0]} />
+            <Input type='date' id='record-date' onChange={e => setDate(new Date(e.target.value))} value={date instanceof Date ? date.toISOString().split('T')[0] : date.split('T')[0] } />
            </div>
            </div>
           <div className="flex flex-col gap-2">

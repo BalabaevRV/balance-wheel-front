@@ -13,11 +13,11 @@ export const wheelApi = {
     api.get<IWheel[]>(API_ENDPOINTS.WHEEL_BY_ID(id)),
 
   attachWheel: (wheelId: number): Promise<ApiResponse<IUser>> => { 
-    return api.post(API_ENDPOINTS.ATTACH_WHEEL(wheelId));
+    return api.post(API_ENDPOINTS.WHEEL_ATTACH(wheelId));
   },
 
   detachWheel: (wheelId: number): Promise<ApiResponse<IUser>> => {
-    return api.post(API_ENDPOINTS.DETACH_WHEEL(wheelId));
+    return api.post(API_ENDPOINTS.WHEEL_DETACH(wheelId));
   },
 
   save: (data: IWheelSave): Promise<ApiResponse<IWheel>> => {
