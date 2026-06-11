@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { addRecord, updateRecord, removeRecord } from '@/entities/user/model/userSlice';
 import { useNavigate, useParams } from "react-router-dom";
 import { WheelChart } from "@/widgets/ui/WheelChart/WheelChart"
 import { RecordValueInput } from "@/entities/record/ui/RecordValueInput/RecordValueInput"
@@ -6,14 +7,17 @@ import { useMemo, useState } from "react";
 import { Button } from "@/shared/ui/Button/Button";
 import { WheelSelector } from "@/shared/ui/Selector/Selector";
 import { Input } from "@/shared/ui/Input/Input";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/app/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/app/store";
+import { recordApi } from "@/entities/record/model/api";
 
 export function RecordPage() {
+  const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();  
   const navigate = useNavigate();
   const { id } = useParams();
   const { wheels, records } = useSelector((state: RootState) => state.user);
+  const { id: idCurrentUser } = useSelector((state: RootState) => state.user);
 
   const initialState = useMemo(() => {
     if (id) {
@@ -23,7 +27,6 @@ export function RecordPage() {
         existingRecord.values?.forEach(field => {
           initialValues[field.field_id] = field.value;
         });
-        
         return {
           wheelId: existingRecord.wheel_id,
           wheelName: existingRecord.balance_wheel_name,
@@ -55,7 +58,6 @@ export function RecordPage() {
   
   const numberValues = useMemo(() => {
     if (!selectedWheel) return [];
-    
     return selectedWheel.fields.map(field => ({
       field_id: field.field_id,
       name: field.name,
@@ -76,12 +78,6 @@ export function RecordPage() {
     setCustomValues({}); 
   };
 
-  const saveRecord = () => {
-    
-    console.log('Saving record:', { wheelId, customValues });
-    navigate('/dashboard');
-  };
-
   const wheelOptions = wheels.map((wheel) => ({
     value: wheel.wheel_id,
     name: wheel.name
@@ -91,7 +87,6 @@ export function RecordPage() {
     if (numberValues.length === 0) {
       return <p className="text-gray-500 italic">{t('selectWheelFirst')}</p>;
     }
-    
     return numberValues.map((field) => (
       <RecordValueInput 
         key={field.field_id} 
@@ -103,6 +98,32 @@ export function RecordPage() {
       />
     ));
   };
+
+    const saveRecord = async () => {
+    if (!idCurrentUser || !wheelId || numberValues.length === 0) {
+      return
+    }
+    const response = await recordApi.saveRecord({
+      record_id: id ? parseInt(id) : undefined,
+      wheel_id: wheelId, 
+      values: numberValues,
+    });
+    if (response.success) {
+      dispatch(id ? updateRecord(response.data) : addRecord(response.data));
+      navigate('/dashboard');
+    }
+  }
+
+  const deleteRecord = async () => {
+    if (!idCurrentUser || !id) {
+      return
+    }
+  const response = await recordApi.deleteRecord(parseInt(id));
+    if (response.success) {
+      dispatch(removeRecord(parseInt(id)));
+      navigate('/dashboard');
+    }
+  }
 
   return (
     <>
@@ -119,7 +140,10 @@ export function RecordPage() {
           <div className="flex flex-col gap-2">
             {renderValues()}
           </div>
-          <Button onClick={saveRecord}>{t('save')}</Button>
+          <div className="flex gap-4 mt-6">
+            <Button onClick={saveRecord}>{t('save')}</Button>
+            <Button onClick={deleteRecord}>{t('delete')}</Button>
+          </div>
         </div>
         <WheelChart data={numberValues} />
       </div>

@@ -18,7 +18,7 @@ function WheelEditorPage() {
   const { wheels } = useSelector((state: RootState) => state.user);
   const { id: idCurrentUser } = useSelector((state: RootState) => state.user);
   const saveWheel = async () => {
-    if (!idCurrentUser) {
+    if (!idCurrentUser || fields.length === 0) {
       return
     }
     const response = await wheelApi.save({

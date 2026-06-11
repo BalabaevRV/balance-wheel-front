@@ -15,3 +15,4 @@ export interface IFieldValue extends IField {
     value: number;
 }
 
+export type IRecordSave = Omit<IRecord, 'record_id' | 'created_at' | 'updated_at' | 'balance_wheel_name' |  'date'> & Partial<IRecord>;

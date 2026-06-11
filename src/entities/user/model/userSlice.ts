@@ -87,6 +87,18 @@ const userSlice = createSlice({
         state.wheels[index] = action.payload;
       }
     },
+    addRecord: (state, action: PayloadAction<IRecord>) => {
+      state.records.push(action.payload);
+    },
+    updateRecord: (state, action: PayloadAction<IRecord>) => {
+      const index = state.records.findIndex(record => record.record_id === action.payload.record_id);
+      if (index !== -1) {
+        state.records[index] = action.payload;
+      }
+    },
+    removeRecord: (state, action: PayloadAction<number>) => {
+      state.records = state.records.filter(record => record.record_id !== action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -148,5 +160,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, updateUser, logout, clearError, addWheel, updateWheel } = userSlice.actions;
+export const { setUser, updateUser, logout, clearError, addWheel, updateWheel, addRecord, updateRecord, removeRecord } = userSlice.actions;
 export default userSlice.reducer;
