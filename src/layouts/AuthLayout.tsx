@@ -6,31 +6,28 @@ import { fetchUserProfile } from '@/entities/user/model/userSlice';
 import { useEffect } from 'react';
 
 export const AuthLayout = () => {
-    const { t } = useTranslation();    
-    const dispatch = useDispatch<AppDispatch>();
-    const { token, isAuthenticated, name, loading } = useSelector(
-        (state: RootState) => state.user
-    );
+  const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
+  const { token, isAuthenticated, name, loading } = useSelector((state: RootState) => state.user);
 
-  
-    useEffect(() => {
-        if (token && !name && !loading) {
-            dispatch(fetchUserProfile());
-        }
-    }, []);
-
-
-    if (loading || (token && !name)) {
-        return <div>{t('loading')}</div>;
+  useEffect(() => {
+    if (token && !name && !loading) {
+      dispatch(fetchUserProfile());
     }
-    
-    if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
-    }
-    
-    return (
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (loading || (token && !name)) {
+    return <div>{t('loading')}</div>;
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return (
     <div className="min-h-screen bg-gray-50">
-       <header className="bg-white shadow-sm border-b">
+      <header className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex gap-4">
             <Link to="/dashboard">{t('dashboard')}</Link>
@@ -40,7 +37,7 @@ export const AuthLayout = () => {
         </div>
       </header>
       <main className="container mx-auto px-4 py-8">
-        <Outlet /> 
+        <Outlet />
       </main>
       <footer className="border-t mt-auto py-4 text-center text-gray-500">
         {t('appName')} © 2025

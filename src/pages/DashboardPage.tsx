@@ -7,52 +7,65 @@ import type { RootState } from '@/app/store'
 import { useSelector } from 'react-redux'
 
 export const DashboardPage = () => {
-  const { t } = useTranslation();  
+	const { t } = useTranslation()
 
-  const navigate = useNavigate();
+	const navigate = useNavigate()
 
-  const { id, name, wheels, records } = useSelector((state: RootState) => state.user);
+	const { id, name, wheels, records } = useSelector((state: RootState) => state.user)
 
-  const userWheels = wheels.map((wheel) => (
-    <WheelCard key={wheel.wheel_id} name={wheel.name} fields={wheel.fields} wheelId={wheel.wheel_id} ownerButton={wheel.owner_id === id} attachedButton={true} />
-  )); 
+	const userWheels = wheels.map((wheel) => (
+		<WheelCard
+			key={wheel.wheel_id}
+			name={wheel.name}
+			fields={wheel.fields}
+			wheelId={wheel.wheel_id}
+			ownerButton={wheel.owner_id === id}
+			attachedButton={true}
+		/>
+	))
 
-    const userRecords = records.map((record) => (
-    <RecordCard key={record.record_id} name={record.balance_wheel_name} id={record.record_id} values={record.values} date={record.date} />
-  )); 
+	const userRecords = records.map((record) => (
+		<RecordCard
+			key={record.record_id}
+			name={record.balance_wheel_name}
+			id={record.record_id}
+			values={record.values}
+			date={record.date}
+		/>
+	))
 
-  const createRecord = () => {
-     navigate('/record'); 
-  }
+	const createRecord = () => {
+		navigate('/record')
+	}
 
-  const createWheel = () => {
-     navigate('/wheel'); 
-  }
+	const createWheel = () => {
+		navigate('/wheel')
+	}
 
-  const goToMyRecords = () => {
-    navigate('/records');
-  }
+	const goToMyRecords = () => {
+		navigate('/records')
+	}
 
-  return (
-    <>
-      <p className="text-xl font-bold mb-8">{t('welcome', { name: name })}</p>
-      <div className='mb-12'>
-        <p className="text-lg font-medium mb-">{t('recentRecords')}</p>
-        <ul className='flex flex-wrap gap-4 mb-6'> 
-          {userRecords.length > 0 ? userRecords : <p>{t('myRecordsEmpty')}</p>}
-        </ul>
-        <div className='flex gap-4'>
-          <Button onClick={createRecord}>{t('createRecord')}</Button>
-          <Button onClick={goToMyRecords}>{t('allMyRecords')}</Button>
-        </div>
-      </div>
-      <div className='mb-6'>
-        <p className="text-lg font-medium mb-2">{t('myWheels')}</p>
-        <ul className='flex flex-wrap gap-4 mb-6'>  
-          {userWheels.length > 0 ? userWheels : <p>{t('myWheelsEmpty')}</p>}
-        </ul>
-        <Button onClick={createWheel}>{t('createWheel')}</Button>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<p className="text-xl font-bold mb-8">{t('welcome', { name: name })}</p>
+			<div className="mb-12">
+				<p className="text-lg font-medium mb-">{t('recentRecords')}</p>
+				<ul className="flex flex-wrap gap-4 mb-6">
+					{userRecords.length > 0 ? userRecords : <p>{t('myRecordsEmpty')}</p>}
+				</ul>
+				<div className="flex gap-4">
+					<Button onClick={createRecord}>{t('createRecord')}</Button>
+					<Button onClick={goToMyRecords}>{t('allMyRecords')}</Button>
+				</div>
+			</div>
+			<div className="mb-6">
+				<p className="text-lg font-medium mb-2">{t('myWheels')}</p>
+				<ul className="flex flex-wrap gap-4 mb-6">
+					{userWheels.length > 0 ? userWheels : <p>{t('myWheelsEmpty')}</p>}
+				</ul>
+				<Button onClick={createWheel}>{t('createWheel')}</Button>
+			</div>
+		</>
+	)
 }

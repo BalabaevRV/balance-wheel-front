@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
-import * as d3 from 'd3'
-import type  { IFieldValue } from "@/entities/record/model/types";
+import { useEffect, useRef } from 'react';
+import * as d3 from 'd3';
+import type { IFieldValue } from '@/entities/record/model/types';
 
 interface WheelChartProps {
   width?: number;
@@ -11,17 +11,24 @@ interface WheelChartProps {
   data: IFieldValue[];
 }
 
-export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, maxValue = 10, showLabels = true }: WheelChartProps) => {
-
+export const WheelChart = ({
+  data,
+  width = 900,
+  height = 500,
+  radius = 200,
+  maxValue = 10,
+  showLabels = true,
+}: WheelChartProps) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-  if (!chartContainerRef.current || !data.length) return;
+    const container = chartContainerRef.current;
+    if (!container || !data.length) return;
     // Очищаем контейнер
     d3.select(chartContainerRef.current).selectAll('*').remove();
 
     // Создаём SVG
     const svg = d3
-      .select(chartContainerRef.current)
+      .select(container)
       .append('svg')
       .attr('width', width)
       .attr('height', height)
@@ -29,11 +36,17 @@ export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, max
       .attr('style', 'max-width: 100%; height: auto; font: 10px sans-serif;');
 
     // Pie layout
-    const pie = d3.pie<IFieldValue>().sort(null).value(() => 1);
+    const pie = d3
+      .pie<IFieldValue>()
+      .sort(null)
+      .value(() => 1);
     const arcs = pie(data);
     const arcGenerator = d3.arc<d3.DefaultArcObject>();
     const labelRadius = radius + 25;
-    const arcLabel = d3.arc<d3.PieArcDatum<IFieldValue>>().innerRadius(labelRadius).outerRadius(labelRadius);
+    const arcLabel = d3
+      .arc<d3.PieArcDatum<IFieldValue>>()
+      .innerRadius(labelRadius)
+      .outerRadius(labelRadius);
 
     // Рисуем сектора
     arcs.forEach((arc, index) => {
@@ -44,7 +57,15 @@ export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, max
       // Контур
       svg
         .append('path')
-        .attr('d', arcGenerator({ innerRadius: 0, outerRadius: radius, startAngle: arc.startAngle, endAngle: arc.endAngle }) as string)
+        .attr(
+          'd',
+          arcGenerator({
+            innerRadius: 0,
+            outerRadius: radius,
+            startAngle: arc.startAngle,
+            endAngle: arc.endAngle,
+          }) as string,
+        )
         .attr('fill', 'none')
         .attr('stroke', '#777')
         .attr('stroke-width', 0.5);
@@ -52,7 +73,15 @@ export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, max
       // Заполнение
       svg
         .append('path')
-        .attr('d', arcGenerator({ innerRadius: 0, outerRadius: radius * fillRatio, startAngle: arc.startAngle, endAngle: arc.endAngle }) as string)
+        .attr(
+          'd',
+          arcGenerator({
+            innerRadius: 0,
+            outerRadius: radius * fillRatio,
+            startAngle: arc.startAngle,
+            endAngle: arc.endAngle,
+          }) as string,
+        )
         .attr('fill', color)
         .attr('opacity', 0.9)
         .attr('stroke', '#777')
@@ -62,7 +91,7 @@ export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, max
       if (showLabels) {
         const [x, y] = arcLabel.centroid(arc);
         const angle = (arc.startAngle + arc.endAngle) / 2;
-        
+
         svg
           .append('text')
           .attr('transform', `translate(${x}, ${y})`)
@@ -79,11 +108,12 @@ export const WheelChart = ({ data, width = 900, height = 500,  radius = 200, max
     });
 
     return () => {
-      if (chartContainerRef.current) {
-        d3.select(chartContainerRef.current).selectAll('*').remove();
+      if (container) {
+        d3.select(container).selectAll('*').remove();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-   return <div ref={chartContainerRef} />;
+  return <div ref={chartContainerRef} />;
 };
